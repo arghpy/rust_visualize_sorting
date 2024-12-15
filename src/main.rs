@@ -23,7 +23,7 @@ fn bubble_sort_visualization(rng: &mut ThreadRng) {
     pixels.fill(0x00FF00);
     bars_array(&mut pixels, &arr);
     save_as_ppm(format!("bubble_sort/round-{}.ppm", nr).as_str(), &pixels).unwrap();
-    for _ in 0..(arr.len() - 1) {
+    for _ in 0..arr.len() {
         for i in 0..(arr.len() - 1) {
             if arr[i] > arr[i + 1] {
                 arr.swap(i, i + 1);
@@ -64,12 +64,12 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
 }
 
 fn bars_array(pixels: &mut [u32], arr: &[usize]) {
-    for x in 0..WIDTH {
-        for y in 0..HEIGHT {
-            pixels[x * HEIGHT + y] = if x >= arr[y] {
-                FOREGROUND
-            } else {
+    for y in 0..HEIGHT {
+        for x in 0..WIDTH {
+            pixels[y * WIDTH + x] = if y < HEIGHT - arr[x] {
                 BACKGROUND
+            } else {
+                FOREGROUND
             };
         }
     }
