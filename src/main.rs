@@ -4,8 +4,10 @@ use std::fs::{File, create_dir};
 use std::io;
 use std::io::{Write, BufWriter};
 
-const WIDTH: usize = 256;
-const HEIGHT: usize = 256;
+// 720p, 64 elements to sort
+const WIDTH: usize = 1280;
+const HEIGHT: usize = 720;
+const BAR_WIDTH: usize = 20;
 
 // Colors
 const FOREGROUND: u32 = 0xFFFFFF; // White
@@ -39,7 +41,7 @@ fn bubble_sort_visualization(rng: &mut ThreadRng) {
 fn construct_random_array(rng: &mut ThreadRng) -> Vec<usize> {
     let mut arr = vec![];
 
-    for _ in 0..WIDTH {
+    for _ in 0..(WIDTH / BAR_WIDTH) {
         // In order to not fill all screen
         arr.push(rng.gen_range(1..(HEIGHT - 5)));
     }
@@ -65,12 +67,15 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
 
 fn bars_array(pixels: &mut [u32], arr: &[usize]) {
     for y in 0..HEIGHT {
-        for x in 0..WIDTH {
-            pixels[y * WIDTH + x] = if y < HEIGHT - arr[x] {
+        for x in (0..WIDTH).step_by(BAR_WIDTH) {
+            pixels[y * WIDTH + x] = if y < HEIGHT - arr[x / BAR_WIDTH] {
                 BACKGROUND
             } else {
                 FOREGROUND
             };
+            for i in 0..BAR_WIDTH {
+                pixels[y * WIDTH + x + i] = pixels[y * WIDTH + x];
+            }
         }
     }
 }
