@@ -1,3 +1,4 @@
+use rand::rngs::ThreadRng;
 use rand::{Rng, thread_rng};
 use std::fs::{File, create_dir};
 use std::io;
@@ -10,9 +11,9 @@ const HEIGHT: usize = 256;
 const FOREGROUND: u32 = 0xFFFFFF; // White
 const BACKGROUND: u32 = 0x000000; // Black
 
-fn bubble_sort_visualization() {
+fn bubble_sort_visualization(rng: &mut ThreadRng) {
     let _ = create_dir("bubble_sort");
-    let mut arr = construct_random_array();
+    let mut arr = construct_random_array(rng);
     let mut pixels = [0u32; WIDTH * HEIGHT];
     let mut nr = 0;
 
@@ -36,12 +37,12 @@ fn bubble_sort_visualization() {
     }
 }
 
-fn construct_random_array() -> Vec<usize> {
-    let mut rng = thread_rng();
+fn construct_random_array(rng: &mut ThreadRng) -> Vec<usize> {
     let mut arr = vec![];
 
     for _ in 0..WIDTH {
-        arr.push(rng.gen_range(1..HEIGHT));
+        // In order to not fill all screen
+        arr.push(rng.gen_range(1..(HEIGHT - 5)));
     }
     arr
 }
@@ -76,5 +77,6 @@ fn bars_array(pixels: &mut [u32], arr: &[usize]) {
 }
 
 fn main() {
-    bubble_sort_visualization();
+    let mut rng = thread_rng();
+    bubble_sort_visualization(&mut rng);
 }
