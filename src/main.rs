@@ -28,7 +28,6 @@ fn bubble_sort_visualization(rng: &mut ThreadRng) {
             if arr[i] > arr[i + 1] {
                 arr.swap(i, i + 1);
 
-                pixels.fill(0x00FF00);
                 bars_array(&mut pixels, &arr);
                 nr += 1;
                 save_as_ppm(format!("bubble_sort/round-{}.ppm", nr).as_str(), &pixels).unwrap();
