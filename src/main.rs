@@ -1,8 +1,8 @@
 use rand::rngs::ThreadRng;
-use rand::{Rng, thread_rng};
-use std::fs::{File, create_dir};
+use rand::{thread_rng, Rng};
+use std::fs::{create_dir, File};
 use std::io;
-use std::io::{Write, BufWriter};
+use std::io::{BufWriter, Write};
 
 // 720p, 64 elements to sort
 const WIDTH: usize = 1280;
@@ -55,9 +55,11 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
         for x in 0..WIDTH {
             let pixel = pixels[y * WIDTH + x];
             // 0xRRGGBB
-            let color = [((pixel >> 8 * 2) & 0xFF) as u8,  // 0xRR
-                         ((pixel >> 8 * 1) & 0xFF) as u8,  // 0xGG
-                         ((pixel >> 8 * 0) & 0xFF) as u8]; // 0xBB
+            let color = [
+                ((pixel >> 8 * 2) & 0xFF) as u8, // 0xRR
+                ((pixel >> 8 * 1) & 0xFF) as u8, // 0xGG
+                ((pixel >> 8 * 0) & 0xFF) as u8, // 0xBB
+            ];
             file.write(&color)?;
         }
     }
