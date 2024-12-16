@@ -20,7 +20,7 @@ $> ./main
 To convert it to video:
 
 ```console
-$> ffmpeg -framerate 500 -i "bubble_sort/round-%d.ppm" out.mp4
+$> ffmpeg -framerate 60 -i "bubble_sort/round-%d.ppm" out.mp4
 ```
 
 And this is a format required to send it via [WhatsApp - Web](https://web.whatsapp.com/):
