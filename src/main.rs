@@ -22,7 +22,7 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
     // because we want to color all of them and this
     // green will indicate if we covered all pixels or not
     pixels.fill(0x00FF00);
-    bars_array(&mut pixels, &arr);
+    bars_array(&mut pixels, arr);
     save_as_ppm(
         format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(),
         &pixels,
@@ -33,7 +33,7 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
             if arr[i] > arr[i + 1] {
                 arr.swap(i, i + 1);
 
-                bars_array(&mut pixels, &arr);
+                bars_array(&mut pixels, arr);
                 nr += 1;
                 save_as_ppm(
                     format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(),
@@ -43,9 +43,9 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
             }
         }
     }
-    convert_to_whatsapp_compatible_video(&dir_name);
-    convert_video_to_gif(&dir_name);
-    let _ = remove_dir_all(&dir_name);
+    convert_to_whatsapp_compatible_video(dir_name);
+    convert_video_to_gif(dir_name);
+    let _ = remove_dir_all(dir_name);
 }
 
 fn convert_to_whatsapp_compatible_video(path: &str) {
@@ -101,11 +101,11 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
             let pixel = pixels[y * WIDTH + x];
             // 0xRRGGBB
             let color = [
-                ((pixel >> 8 * 2) & 0xFF) as u8, // 0xRR
-                ((pixel >> 8 * 1) & 0xFF) as u8, // 0xGG
-                ((pixel >> 8 * 0) & 0xFF) as u8, // 0xBB
+                ((pixel >> (8 * 2)) & 0xFF) as u8, // 0xRR
+                ((pixel >> (8 * 1)) & 0xFF) as u8, // 0xGG
+                ((pixel >> (8 * 0)) & 0xFF) as u8, // 0xBB
             ];
-            file.write(&color)?;
+            file.write_all(&color)?;
         }
     }
     write!(stdout, "\rGenerated {}", file_path)?;
