@@ -1,7 +1,7 @@
 use rand::{thread_rng, Rng};
-use std::fs::{create_dir, File};
-use std::io;
-use std::io::{BufWriter, Write};
+use std::fs::{create_dir, File, remove_dir_all};
+use std::io::{self, BufWriter, Write};
+use std::process::{Command, Stdio};
 
 // 720p, 64 elements to sort
 const WIDTH: usize = 1280;
@@ -35,9 +35,31 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
             }
         }
     }
+    convert_ppms_to_video(&dir_name);
+    let _ = remove_dir_all(&dir_name);
+}
+
+fn convert_ppms_to_video(path: &str) {
+    let cmd = Command::new("ffmpeg")
+        .arg("-y")
+        .arg("-framerate")
+        .arg("60")
+        .arg("-i")
+        .arg(format!("{}/round-%d.ppm", path).as_str())
+        .arg(format!("{}.mp4", path).as_str())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .status()
+        .expect("process failed to execute");
+
+    if cmd.success() {
+        println!("Video {}.mp4 saved.", path);
+    }
 }
 
 fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
+    let stdout = std::io::stdout();
+    let mut stdout = BufWriter::new(stdout.lock());
     let mut file = BufWriter::with_capacity(WIDTH * HEIGHT * 3, File::create(file_path)?);
     write!(file, "P6\n{} {} 255\n", WIDTH, HEIGHT)?;
     for y in 0..HEIGHT {
@@ -52,7 +74,7 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
             file.write(&color)?;
         }
     }
-    println!("Saved {}", file_path);
+    write!(stdout, "Saved {}\r", file_path)?;
     Ok(())
 }
 
