@@ -35,33 +35,38 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
             }
         }
     }
-    convert_ppms_to_video(&dir_name);
+    convert_to_whatsapp_compatible_video(&dir_name);
     convert_video_to_gif(&dir_name);
     let _ = remove_dir_all(&dir_name);
 }
 
-fn convert_ppms_to_video(path: &str) {
+fn convert_to_whatsapp_compatible_video(path: &str) {
     let cmd = Command::new("ffmpeg")
         .arg("-y")
         .arg("-framerate")
         .arg("120")
         .arg("-i")
         .arg(format!("{}/round-%04d.ppm", path).as_str())
-        .arg(format!("{}.mp4", path).as_str())
+        .arg("-c:v")
+        .arg("libx264")
+        .arg("-profile:v")
+        .arg("baseline")
+        .arg("-level")
+        .arg("3.0")
+        .arg("-pix_fmt")
+        .arg("yuv420p")
+        .arg(format!("{}_for_whatsapp.mp4", path).as_str())
         .stdout(Stdio::null())
         .stderr(Stdio::null())
         .status()
         .expect("process failed to execute");
 
     if cmd.success() {
-        print!("\nVideo {}.mp4 saved.\n", path);
+        println!("Video {}.mp4 saved.n", path);
     }
 }
 
 fn convert_video_to_gif(path: &str) {
-    let dir_name = "frames";
-    let _ = create_dir(dir_name);
-
     let pngs_to_gif = Command::new("gifski")
         .arg("-o")
         .arg(format!("{}.gif", path).as_str())
@@ -74,7 +79,7 @@ fn convert_video_to_gif(path: &str) {
         .expect("process failed to execute");
 
     if pngs_to_gif.success() {
-        print!("\nVideo {}.gif saved.\n", path);
+        println!("Video {}.gif saved.", path);
     }
 }
 
@@ -95,7 +100,7 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
             file.write(&color)?;
         }
     }
-    write!(stdout, "Saved {}\r", file_path)?;
+    write!(stdout, "\rSaved {}", file_path)?;
     Ok(())
 }
 
