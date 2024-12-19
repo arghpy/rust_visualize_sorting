@@ -6,7 +6,7 @@ use std::process::{Command, Stdio};
 // 720p, 64 elements to sort
 const WIDTH: usize = 1280;
 const HEIGHT: usize = 720;
-const BAR_WIDTH: usize = 20;
+const BAR_WIDTH: usize = 40;
 
 // Colors
 const FOREGROUND: u32 = 0xFFFFFF; // White
@@ -23,7 +23,7 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
     // green will indicate if we covered all pixels or not
     pixels.fill(0x00FF00);
     bars_array(&mut pixels, &arr);
-    save_as_ppm(format!("{}/round-{}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
+    save_as_ppm(format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
     for _ in 0..arr.len() {
         for i in 0..(arr.len() - 1) {
             if arr[i] > arr[i + 1] {
@@ -31,11 +31,12 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
 
                 bars_array(&mut pixels, &arr);
                 nr += 1;
-                save_as_ppm(format!("{}/round-{}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
+                save_as_ppm(format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
             }
         }
     }
     convert_ppms_to_video(&dir_name);
+    convert_video_to_gif(&dir_name);
     let _ = remove_dir_all(&dir_name);
 }
 
@@ -45,7 +46,7 @@ fn convert_ppms_to_video(path: &str) {
         .arg("-framerate")
         .arg("120")
         .arg("-i")
-        .arg(format!("{}/round-%d.ppm", path).as_str())
+        .arg(format!("{}/round-%04d.ppm", path).as_str())
         .arg(format!("{}.mp4", path).as_str())
         .stdout(Stdio::null())
         .stderr(Stdio::null())
@@ -54,6 +55,26 @@ fn convert_ppms_to_video(path: &str) {
 
     if cmd.success() {
         print!("\nVideo {}.mp4 saved.\n", path);
+    }
+}
+
+fn convert_video_to_gif(path: &str) {
+    let dir_name = "frames";
+    let _ = create_dir(dir_name);
+
+    let pngs_to_gif = Command::new("gifski")
+        .arg("-o")
+        .arg(format!("{}.gif", path).as_str())
+        .arg("--fps")
+        .arg("50")
+        .arg(format!("{}.mp4", path).as_str())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .status()
+        .expect("process failed to execute");
+
+    if pngs_to_gif.success() {
+        print!("\nVideo {}.gif saved.\n", path);
     }
 }
 
