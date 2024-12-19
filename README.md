@@ -8,13 +8,13 @@ Example: [15 Sorting Algorithms in 6 Minutes](https://www.youtube.com/watch?v=kP
 To compile it:
 
 ```console
-$> rustc main.rs
+cargo build
 ```
 
 To run it:
 
 ```console
-$> ./main
+cargo run
 ```
 
 To convert it to video:
@@ -29,3 +29,7 @@ And this is a format required to send it via [WhatsApp - Web](https://web.whatsa
 ```console
 $> ffmpeg -y -i bubble_sort/round-%d.ppm -c:v libx264 -profile:v baseline -level 3.0 -pix_fmt yuv420p out.mp4
 ```
+
+Gif example:
+
+![Bubble sort](./assets/bubble_sort.gif)
