@@ -13,7 +13,8 @@ const FOREGROUND: u32 = 0xFFFFFF; // White
 const BACKGROUND: u32 = 0x000000; // Black
 
 fn bubble_sort_visualization(arr: &mut [usize]) {
-    let _ = create_dir("bubble_sort");
+    let dir_name = "bubble_sort";
+    let _ = create_dir(dir_name);
     let mut pixels = [0u32; WIDTH * HEIGHT];
     let mut nr = 0;
 
@@ -22,7 +23,7 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
     // green will indicate if we covered all pixels or not
     pixels.fill(0x00FF00);
     bars_array(&mut pixels, &arr);
-    save_as_ppm(format!("bubble_sort/round-{}.ppm", nr).as_str(), &pixels).unwrap();
+    save_as_ppm(format!("{}/round-{}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
     for _ in 0..arr.len() {
         for i in 0..(arr.len() - 1) {
             if arr[i] > arr[i + 1] {
@@ -30,7 +31,7 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
 
                 bars_array(&mut pixels, &arr);
                 nr += 1;
-                save_as_ppm(format!("bubble_sort/round-{}.ppm", nr).as_str(), &pixels).unwrap();
+                save_as_ppm(format!("{}/round-{}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
             }
         }
     }
