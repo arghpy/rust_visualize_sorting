@@ -1,5 +1,5 @@
 use rand::{thread_rng, Rng};
-use std::fs::{create_dir, File, remove_dir_all};
+use std::fs::{create_dir, remove_dir_all, File};
 use std::io::{self, BufWriter, Write};
 use std::process::{Command, Stdio};
 
@@ -23,7 +23,11 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
     // green will indicate if we covered all pixels or not
     pixels.fill(0x00FF00);
     bars_array(&mut pixels, &arr);
-    save_as_ppm(format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
+    save_as_ppm(
+        format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(),
+        &pixels,
+    )
+    .unwrap();
     for _ in 0..arr.len() {
         for i in 0..(arr.len() - 1) {
             if arr[i] > arr[i + 1] {
@@ -31,7 +35,11 @@ fn bubble_sort_visualization(arr: &mut [usize]) {
 
                 bars_array(&mut pixels, &arr);
                 nr += 1;
-                save_as_ppm(format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(), &pixels).unwrap();
+                save_as_ppm(
+                    format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(),
+                    &pixels,
+                )
+                .unwrap();
             }
         }
     }
