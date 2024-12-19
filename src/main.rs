@@ -43,7 +43,7 @@ fn convert_ppms_to_video(path: &str) {
     let cmd = Command::new("ffmpeg")
         .arg("-y")
         .arg("-framerate")
-        .arg("60")
+        .arg("120")
         .arg("-i")
         .arg(format!("{}/round-%d.ppm", path).as_str())
         .arg(format!("{}.mp4", path).as_str())
@@ -53,7 +53,7 @@ fn convert_ppms_to_video(path: &str) {
         .expect("process failed to execute");
 
     if cmd.success() {
-        println!("Video {}.mp4 saved.", path);
+        print!("\nVideo {}.mp4 saved.\n", path);
     }
 }
 
