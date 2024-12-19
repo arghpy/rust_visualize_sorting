@@ -5,7 +5,7 @@
 This is a project trying to reproduce famous videos show-casing how sorting algorithms work.
 Example: [15 Sorting Algorithms in 6 Minutes](https://www.youtube.com/watch?v=kPRA0W1kECg).
 
-# Prerequisites
+## Prerequisites
 
 In order for the program to work you will need to have installed:
 - rust
