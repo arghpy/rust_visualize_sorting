@@ -63,14 +63,14 @@ fn convert_to_whatsapp_compatible_video(path: &str) {
         .arg("3.0")
         .arg("-pix_fmt")
         .arg("yuv420p")
-        .arg(format!("{}_for_whatsapp.mp4", path).as_str())
+        .arg(format!("{}.mp4", path).as_str())
         .stdout(Stdio::null())
         .stderr(Stdio::null())
         .status()
         .expect("process failed to execute");
 
     if cmd.success() {
-        println!("Video {}.mp4 saved.n", path);
+        println!("\nVideo {}.mp4 saved.", path);
     }
 }
 
@@ -108,7 +108,7 @@ fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
             file.write(&color)?;
         }
     }
-    write!(stdout, "\rSaved {}", file_path)?;
+    write!(stdout, "\rGenerated {}", file_path)?;
     Ok(())
 }
 
