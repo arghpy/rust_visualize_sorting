@@ -31,7 +31,7 @@ pub fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
     Ok(())
 }
 
-pub fn bars_array(pixels: &mut [u32], arr: &[usize]) {
+pub fn bars_array(pixels: &mut Vec<u32>, arr: & Vec<usize>) {
     for y in 0..HEIGHT {
         for x in (0..WIDTH).step_by(BAR_WIDTH) {
             pixels[y * WIDTH + x] = if y < HEIGHT - arr[x / BAR_WIDTH] {

@@ -6,10 +6,11 @@ use std::fs::{create_dir, remove_dir_all};
 pub use crate::HEIGHT;
 pub use crate::WIDTH;
 
-pub fn insertion_sort_visualization(arr: &mut [usize]) {
+pub fn insertion_sort_visualization(arr: &mut Vec<usize>) {
     let dir_name = "insertion_sort";
     let _ = create_dir(dir_name);
-    let mut pixels = [0u32; WIDTH * HEIGHT];
+    //let mut pixels = [0u32; WIDTH * HEIGHT];
+    let mut pixels = vec![0; WIDTH * HEIGHT];
     let mut nr = 0;
 
     // Set by default pixels to a bright green color
