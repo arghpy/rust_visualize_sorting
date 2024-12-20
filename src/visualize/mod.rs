@@ -1,2 +1,2 @@
-mod media;
 pub mod algorithms;
+mod media;
