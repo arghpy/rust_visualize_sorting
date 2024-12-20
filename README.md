@@ -1,6 +1,6 @@
-# rust-visualize-sorting
+# rust_visualize_sorting
 
-[![Super-Linter](https://github.com/arghpy/rust-visualize-sorting/actions/workflows/manage_pull_requests.yaml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![Super-Linter](https://github.com/arghpy/rust_visualize_sorting/actions/workflows/manage_pull_requests.yaml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 This is a project trying to reproduce famous videos show-casing how sorting algorithms work.
 Example: [15 Sorting Algorithms in 6 Minutes](https://www.youtube.com/watch?v=kPRA0W1kECg).
