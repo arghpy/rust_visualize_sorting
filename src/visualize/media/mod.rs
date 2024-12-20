@@ -11,8 +11,6 @@ use crate::BACKGROUND;
 use crate::FOREGROUND;
 
 pub fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
-    let stdout = std::io::stdout();
-    let mut stdout = BufWriter::new(stdout.lock());
     let mut file = BufWriter::with_capacity(WIDTH * HEIGHT * 3, File::create(file_path)?);
     write!(file, "P6\n{} {} 255\n", WIDTH, HEIGHT)?;
     for y in 0..HEIGHT {
@@ -27,7 +25,8 @@ pub fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
             file.write_all(&color)?;
         }
     }
-    write!(stdout, "\rGenerated {}", file_path)?;
+    print!("Generated {file_path}\r");
+    io::stdout().flush().unwrap();
     Ok(())
 }
 
