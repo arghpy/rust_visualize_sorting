@@ -1,5 +1,5 @@
 [package]
-name = "rust-visualize-sorting"
+name = "rust_visualize_sorting"
 version = "0.1.0"
 edition = "2021"
 
