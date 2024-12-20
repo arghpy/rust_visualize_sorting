@@ -2,6 +2,14 @@ use std::io::{self, BufWriter, Write};
 use std::process::{Command, Stdio};
 use std::fs::File;
 
+use crate::WIDTH;
+use crate::HEIGHT;
+use crate::BAR_WIDTH;
+
+// Colors
+use crate::FOREGROUND;
+use crate::BACKGROUND;
+
 pub fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
     let stdout = std::io::stdout();
     let mut stdout = BufWriter::new(stdout.lock());

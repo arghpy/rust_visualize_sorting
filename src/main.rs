@@ -1,6 +1,7 @@
 use rand::{thread_rng, Rng};
+use crate::visualize::algorithms::{bubble_sort::bubble_sort_visualization, insertion_sort::insertion_sort_visualization};
 
-mod algorithms;
+mod visualize;
 
 // 720p, 64 elements to sort
 pub const WIDTH: usize = 1280;
@@ -19,6 +20,6 @@ fn main() {
         // In order to not fill all screen height
         arr.push(rng.gen_range(1..(HEIGHT - 5)));
     }
-    algorithms::bubble_sort_visualization(&mut arr.clone());
-    algorithms::insertion_sort_visualization(&mut arr.clone());
+    bubble_sort_visualization(&mut arr.clone());
+    insertion_sort_visualization(&mut arr.clone());
 }
