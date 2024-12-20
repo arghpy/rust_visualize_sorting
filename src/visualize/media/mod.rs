@@ -1,14 +1,14 @@
+use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use std::process::{Command, Stdio};
-use std::fs::File;
 
-use crate::WIDTH;
-use crate::HEIGHT;
 use crate::BAR_WIDTH;
+use crate::HEIGHT;
+use crate::WIDTH;
 
 // Colors
-use crate::FOREGROUND;
 use crate::BACKGROUND;
+use crate::FOREGROUND;
 
 pub fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
     let stdout = std::io::stdout();
@@ -31,7 +31,7 @@ pub fn save_as_ppm(file_path: &str, pixels: &[u32]) -> io::Result<()> {
     Ok(())
 }
 
-pub fn bars_array(pixels: &mut Vec<u32>, arr: & Vec<usize>) {
+pub fn bars_array(pixels: &mut Vec<u32>, arr: &Vec<usize>) {
     for y in 0..HEIGHT {
         for x in (0..WIDTH).step_by(BAR_WIDTH) {
             pixels[y * WIDTH + x] = if y < HEIGHT - arr[x / BAR_WIDTH] {
