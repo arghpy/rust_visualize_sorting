@@ -26,13 +26,14 @@ fn insertion_sort_visualization(arr: &mut [usize]) {
     save_as_ppm(
         format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(),
         &pixels,
-    ).unwrap();
+    )
+    .unwrap();
 
     let mut i = 1;
     let mut j;
     while i < arr.len() {
         j = i;
-        while j > 0 && arr[j-1] > arr[j] {
+        while j > 0 && arr[j - 1] > arr[j] {
             arr.swap(j, j - 1);
             j -= 1;
 
@@ -40,7 +41,8 @@ fn insertion_sort_visualization(arr: &mut [usize]) {
             save_as_ppm(
                 format!("{}/round-{:0>4}.ppm", dir_name, nr).as_str(),
                 &pixels,
-            ).unwrap();
+            )
+            .unwrap();
             nr += 1;
         }
         i += 1;
