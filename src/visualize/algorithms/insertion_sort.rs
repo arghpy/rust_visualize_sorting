@@ -44,5 +44,6 @@ pub fn insertion_sort_visualization(arr: &mut Vec<usize>) {
     }
     convert_to_whatsapp_compatible_video(dir_name);
     convert_video_to_gif(dir_name);
+    println!("Removing directory {dir_name}");
     let _ = remove_dir_all(dir_name);
 }
