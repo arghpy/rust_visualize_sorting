@@ -14,13 +14,13 @@ In order for the program to work you will need to install:
 
 ## Run
 
-To compile it:
+Compile it:
 
 ```console
 cargo build --release
 ```
 
-To run it:
+Run it:
 
 ```console
 cargo run
