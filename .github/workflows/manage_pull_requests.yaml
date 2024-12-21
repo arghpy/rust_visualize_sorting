@@ -1,6 +1,5 @@
 name: "Manage Pull Requests"
 
-
 on:
   pull_request:
     types:
