@@ -26,7 +26,7 @@ Run it:
 cargo run
 ```
 
-Example (Bubble sort):
+Example - Bubble sort:
 
 ![Bubble sort](./assets/bubble_sort.gif)
 
