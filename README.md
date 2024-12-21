@@ -7,7 +7,7 @@ Example: [15 Sorting Algorithms in 6 Minutes](https://www.youtube.com/watch?v=kP
 
 ## Prerequisites
 
-In order for the program to work you will need to have installed:
+In order for the program to work you will need to install:
 - rust
 - cargo
 - ffmpeg
