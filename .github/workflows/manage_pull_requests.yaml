@@ -25,7 +25,7 @@ concurrency:
 jobs:
   manage_pull_requests:
     name: Manage pull requests
-    uses: arghpy/shared-workflows/.github/workflows/manage_pull_requests.yaml@manage_prs_workflow
+    uses: arghpy/shared-workflows/.github/workflows/lint.yaml@manage_prs_workflow
     secrets: inherit
     with:
       runner: ${{ vars.RUNNER }}
