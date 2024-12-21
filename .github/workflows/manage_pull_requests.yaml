@@ -13,7 +13,6 @@ on:
     types:
       - submitted
 
-
 permissions:
   issues: write
   pull-requests: write
