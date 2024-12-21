@@ -21,7 +21,7 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ contains(github.event.*.labels.*.name, 'merge') == "true" }}
 
 jobs:
   manage_pull_requests:
