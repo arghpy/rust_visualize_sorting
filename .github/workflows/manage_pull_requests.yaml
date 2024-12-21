@@ -18,7 +18,6 @@ permissions:
   pull-requests: write
   contents: write
 
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ contains(github.event.*.labels.*.name, 'merge') != true }}
