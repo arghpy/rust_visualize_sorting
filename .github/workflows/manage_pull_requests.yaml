@@ -20,6 +20,7 @@ permissions:
   contents: write
 
 jobs:
+
   manage_pull_requests:
     name: Manage pull requests
     uses: arghpy/shared-workflows/.github/workflows/lint.yaml@manage_prs_workflow
