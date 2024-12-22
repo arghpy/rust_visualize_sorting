@@ -25,7 +25,8 @@ concurrency:
 jobs:
   manage_pull_requests:
     name: Manage pull requests
-    uses: arghpy/shared-workflows/.github/workflows/manage_pull_requests.yaml@main
+    uses: arghpy/shared-workflows/.github/workflows/manage_pull_requests.yaml@break_the_other_jobs
     secrets: inherit
     with:
       runner: ${{ vars.RUNNER }}
+      merge_method: "merge"
