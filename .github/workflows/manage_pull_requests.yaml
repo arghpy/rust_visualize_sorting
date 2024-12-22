@@ -30,4 +30,4 @@ jobs:
     secrets: inherit
     with:
       runner: ${{ vars.RUNNER }}
-      merge_method: "merge"
+      merge_method: "rebase"
