@@ -20,11 +20,16 @@ Compile it:
 cargo build --release
 ```
 
-Run it:
+Get help:
 
 ```console
-cargo run
+cargo run -- --help
 ```
+
+Currently, you can choose to run:
+- all algorithms
+- bubble-sort
+- insertion-sort
 
 Example - Bubble sort:
 
@@ -40,5 +45,4 @@ Implemented algorithms:
 - bubble sort
 - insertion sort
 
-In the future, more algorithms will be implemented and the user will be able to opt for them
-as well as for the video format.
+In the future, more algorithms will be implemented.
